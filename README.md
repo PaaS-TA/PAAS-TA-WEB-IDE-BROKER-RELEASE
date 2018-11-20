@@ -8,7 +8,7 @@
 
 >`$ sh deploy-vsphere.sh`
 
-##3. src
+##3. src  <br>
 src 폴더에 각 package의 설치파일이 위치해야 한다.
 
 src <br>
