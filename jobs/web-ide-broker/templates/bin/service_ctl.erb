@@ -1,0 +1,53 @@
+#!/bin/bash
+
+set -e
+JOB_NAME="web-ide-broker"
+
+JOB_DIR="/var/vcap/jobs/${JOB_NAME}"
+JOB_CONFIG="${JOB_DIR}/data/application.yml"
+PKG_DIR="/var/vcap/packages/${JOB_NAME}"
+JAVA_DIR="/var/vcap/packages/java"
+ACTIVE="dev"
+
+export JOB_NAME
+source /var/vcap/jobs/${JOB_NAME}/helpers/ctl_setup.sh $JOB_NAME
+
+export JOB_DIR
+export PKG_DIR
+export JAVA_DIR
+
+case $1 in
+
+  start)
+    echo "starting :: ${JOB_NAME}"
+    pid_guard $PIDFILE $JOB_NAME
+
+
+    echo "starting 1 :: PIDFILE :: $PIDFILE"
+    echo "starting 2 :: JOB_NAME :: $JOB_NAME"
+    echo "starting 3 :: JOB_DIR :: $JOB_DIR"
+    echo "starting 5 :: PKG_DIR :: $PKG_DIR"
+    echo "starting 6 :: JAVA_DIR :: $JAVA_DIR"
+
+    exec $JAVA_DIR/bin/java -cp "${PKG_DIR}/${JOB_NAME}.jar" <%= p('java_opts')%> -Dspring.config.location=${JOB_CONFIG} org.springframework.boot.loader.JarLauncher \
+                  >>$LOG_DIR/$JOB_NAME.stdout.log \
+                  2>>$LOG_DIR/$JOB_NAME.stderr.log &
+
+    echo $! > $PIDFILE
+
+    echo "starting 6 :: PIDFILE :: $PIDFILE"
+
+    echo "SUCCESS :: starting :: ${JOB_NAME}"
+    ;;
+  stop)
+
+    kill_and_wait $PIDFILE
+
+    ;;
+
+  *)
+    echo "usage: service_ctl {start|stop}"
+    ;;
+
+esac
+exit 0

@@ -1,0 +1,5 @@
+check process web-ide-broker
+  with pidfile /var/vcap/sys/run/web-ide-broker/web-ide-broker.pid
+  start program "/var/vcap/jobs/web-ide-broker/bin/monit_debugger service_ctl '/var/vcap/jobs/web-ide-broker/bin/service_ctl start'"
+  stop program "/var/vcap/jobs/web-ide-broker/bin/monit_debugger service_ctl '/var/vcap/jobs/web-ide-broker/bin/service_ctl stop'"
+  group vcap

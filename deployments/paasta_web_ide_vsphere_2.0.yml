@@ -1,0 +1,71 @@
+---
+name: webide-broker-service       #서비스 배포이름(필수) bosh deployments 로 확인 가능한 이름
+# director_uuid: <%= `bosh status --uuid` %>                  # Director UUID을 입력(필수) bosh status 명령으로 확인 가능
+
+stemcells:
+- alias: default
+  os: ((stemcell_os))
+  version: "((stemcell_version))"
+
+releases:
+- name: webide-broker-release                  # 서비스 릴리즈 이름(필수) bosh releases로 확인 가능
+  version: "1.1"                                              # 서비스 릴리즈 버전(필수):latest 시 업로드된 서비스 릴리즈 최신버전
+
+update:
+  canaries: 1                                               # canary 인스턴스 수(필수)
+  canary_watch_time: 5000-120000                            # canary 인스턴스가 수행하기 위한 대기 시간(필수)
+  update_watch_time: 5000-120000                            # non-canary 인스턴스가 수행하기 위한 대기 시간(필수)
+  max_in_flight: 1                                          # non-canary 인스턴스가 병렬로 update 하는 최대 개수(필수)
+  serial: false
+
+instance_groups:
+########## INFRA ##########
+- name: mariadb
+  azs:
+  - z3
+  instances: 1
+  vm_type: small
+  stemcell: "((stemcell_alias))"
+  persistent_disk_type: "((mariadb_disk_type))"
+  networks:
+  - name: ((internal_networks_name))
+  templates:
+  - name: mariadb
+    release: webide-broker-release
+  syslog_aggregator: null
+
+
+######## BROKER ########
+
+- name: webide-broker
+  azs:
+  - z3
+  instances: 1
+  vm_type: medium
+  stemcell: "((stemcell_alias))"
+  networks:
+  - name: ((internal_networks_name))
+  templates:
+  - name: web-ide-broker
+    release: webide-broker-release
+  syslog_aggregator: null
+  properties:
+    server:
+      port: ((server_port))
+    datasource:
+      password: "((mariadb_user_password))"
+    webide:
+      servers: ((webide_servers))
+    serviceDefinition:
+      id: ((serviceDefinition_id))
+      plan1:
+        id: ((serviceDefinition_plan1_id))
+
+######### COMMON PROPERTIES ##########
+properties:
+  mariadb:                                                # MARIA DB SERVER 설정 정보
+    port: ((mariadb_port))                                            # MARIA DB PORT 번호
+    admin_user:
+      password: '((mariadb_user_password))'                             # MARIA DB ROOT 계정 비밀번호
+    host_names:
+    - mariadb0

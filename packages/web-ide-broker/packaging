@@ -1,0 +1,6 @@
+set -e
+
+JAR_DIR_NAME=web-ide-broker
+JAR_NAME=web-ide-broker
+
+cp $JAR_DIR_NAME/$JAR_NAME.jar ${BOSH_INSTALL_TARGET}

@@ -1,0 +1,47 @@
+---
+name: web-ide-broker
+
+templates:
+  bin/service_ctl.erb: bin/service_ctl
+  bin/monit_debugger: bin/monit_debugger
+  data/application.yml.erb: data/application.yml
+  data/properties.sh: data/properties.sh
+  helpers/ctl_setup.sh: helpers/ctl_setup.sh
+  helpers/ctl_utils.sh: helpers/ctl_utils.sh
+
+packages:
+  - java
+  - web-ide-broker
+
+provides:
+  - {name: web-ide-broker-link, type: web-ide-broker, properties: [server.port, datasource.drive_class_name, datasource.url, datasource.password, logging.level.root.org.openpaas.servicebroker.controller, webide.servers, serviceDefinition.id, serviceDefinition.id, serviceDefinition.plan1.id]}
+
+consumes:
+  - name: mariadb-link
+    type: mariadb
+
+properties:
+  java_opts:
+    description: 'Luncher Java option'
+    default: '-Xms512m -Xmx1024m -XX:ReservedCodeCacheSize=240m -XX:+UseCompressedOops -Dfile.encoding=UTF-8 -XX:+UseConcMarkSweepGC -XX:SoftRefLRUPolicyMSPerMB=50 -Dsun.io.useCanonCaches=false -Djava.net.preferIPv4Stack=true -XX:+HeapDumpOnOutOfMemoryError -XX:-OmitStackTraceInFastThrow -Xverify:none -XX:ErrorFile=/var/vcap/sys/log/java_error_in_idea_%p.log -XX:HeapDumpPath=/var/vcap/sys/log/java_error_in_idea.hprof'
+  server.port:
+    default: 8080
+    description: 'Server Port'
+  datasource.drive_class_name:
+    description: 'driver class name for broker DB'
+  datasource.url:
+    description: 'url to access broker DB'
+  datasource.password:
+    description: 'password to access broker DB'
+  logging.level.root.org.openpaas.servicebroker.controller:
+    description: 'INFO'
+    default: 'INFO'
+  webide.servers:
+    description: 'Web ide service list'
+    default: '["10.0.0.1"]'
+  serviceDefinition.id:
+    description: 'service broker id'
+    default: 'af86588c-6212-11e7-907b-b6006ad3webide0'
+  serviceDefinition.plan1.id:
+    description: 'service broker plan1 id'
+    default: 'af86588c-6212-11e7-907b-b6006ad3webide1'

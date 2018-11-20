@@ -1,0 +1,7 @@
+---
+name: web-ide-broker
+
+dependencies: []
+
+files:
+- web-ide-broker/web-ide-broker.jar

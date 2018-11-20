@@ -1,0 +1,40 @@
+server:
+  port: <%= p('server.port')%>
+
+spring:
+  application:
+    name: paasta-web-ide
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: "jdbc:mysql://<%= link('mariadb-link').instances[0].address%>:<%= link('mariadb-link').p('mariadb.port')%>/webide?autoReconnect=true&useUnicode=true&characterEncoding=utf8"
+    username: root
+    password: <%= p('datasource.password')%>
+  jpa:
+    hibernate:
+      ddl-auto: none
+      database: mysql
+      show-sql: true
+
+logging:
+  level:
+    root:
+      org:
+        openpaas:
+          servicebroker:
+            controller: INFO
+
+webide:
+  servers: '<%= p('webide.servers')%>'
+
+serviceDefinition:
+  id: <%= p('serviceDefinition.id')%>
+  name: webide
+  desc: "A paasta web ide service for application development.provision parameters"
+  bindable: false
+  planupdatable: false
+  plan1:
+    id: <%= p('serviceDefinition.plan1.id')%>
+    name: webide-shared
+    desc: "This is service plan. All services are created equally."
+    type: A
+
