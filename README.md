@@ -25,4 +25,4 @@ src <br>
 <br>
 
 - 다운로드 위치 
->PAAS-TA-WEB-IDE-BROKER-RELEASE : **<http://45.248.73.44/index.php/s/qkyBRkXtH2sr8Rw/download>**
+>PAAS-TA-WEB-IDE-BROKER-RELEASE : **<http://45.248.73.44/index.php/s/rY7WyjyWzgcwDSQ/download>**
