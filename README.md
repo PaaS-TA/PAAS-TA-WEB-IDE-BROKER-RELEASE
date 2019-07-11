@@ -24,5 +24,10 @@ src <br>
 └── README.md <br>      
 <br>
 
-- 다운로드 위치 
->PAAS-TA-WEB-IDE-BROKER-RELEASE : **<http://45.248.73.44/index.php/s/rY7WyjyWzgcwDSQ/download>**
+```
+$ cd ~/
+$ git clone https://github.com/PaaS-TA/PAAS-TA-DELIVERY-PIPELINE-RELASE.git
+$ cd ~/PAAS-TA-DELIVERY-PIPELINE-RELASE
+$ wget -O src.zip http://45.248.73.44/index.php/s/zBTB7iF4zikK43D
+$ unzip src.zip
+```
