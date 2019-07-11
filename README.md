@@ -26,8 +26,8 @@ src <br>
 
 ```
 $ cd ~/
-$ git clone https://github.com/PaaS-TA/PAAS-TA-DELIVERY-PIPELINE-RELASE.git
-$ cd ~/PAAS-TA-DELIVERY-PIPELINE-RELASE
+$ git clone https://github.com/PaaS-TA/PAAS-TA-WEB-IDE-BROKER-RELEASE.git
+$ cd ~/PAAS-TA-WEB-IDE-BROKER-RELEASE
 $ wget -O src.zip http://45.248.73.44/index.php/s/zBTB7iF4zikK43D
 $ unzip src.zip
 ```
