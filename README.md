@@ -26,7 +26,7 @@ src <br>
 
 ```
 $ cd ~/
-$ git clone https://github.com/PaaS-TA/PAAS-TA-PORTAL-RELEASE.git
+$ git clone https://github.com/PaaS-TA/PAAS-TA-WEB-IDE-BROKER-RELEASE.git
 $ cd ~/PAAS-TA-WEB-IDE-BROKER-RELEASE
 $ wget -O src.zip http://45.248.73.44/index.php/s/Pf6fk3AGea3mgYn/download
 $ unzip src.zip
